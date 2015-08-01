@@ -56,6 +56,10 @@ def _GetCompletions(cfile, crow, ccol, ctype):
                        cfile).split('\n')
 
 
+def _WrapString(string):
+    return string.replace('\\x0A ', '\n').strip()
+
+
 class NimCompleter(Completer):
     def __init__(self, user_options):
         super(NimCompleter, self).__init__(user_options)
@@ -77,7 +81,7 @@ class NimCompleter(Completer):
                 responses.BuildCompletionData(
                     ToUtf8IfNeeded(name),
                     ToUtf8IfNeeded(ftype + ': ' + description),
-                    ToUtf8IfNeeded(doc)))
+                    ToUtf8IfNeeded(_WrapString(doc))))
 
         try:
             memfile.write(contents)
