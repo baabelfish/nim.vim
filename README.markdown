@@ -1,3 +1,8 @@
+# Different in this fork
+
+* More syntax highlights
+* YCM support for GoTo, GetType and autocompletion
+
 #Nim language support for Vim
 
 This provides [Nim](http://nimrod-code.org) language support for Vim:
