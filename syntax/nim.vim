@@ -150,7 +150,7 @@ if nim_highlight_pragmas == 1
   syn keyword nimDecorator overflowChecks nilChecks assertions
   syn keyword nimDecorator warnings hints optimization
   syn keyword nimDecorator patterns callconv sideEffect
-  syn keyword nimDecorator benign inline
+  syn keyword nimDecorator benign inline inheritable
 endif
 
 if nim_highlight_space_errors == 1
