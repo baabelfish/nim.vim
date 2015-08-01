@@ -19,6 +19,9 @@ endif
 if !exists("nim_highlight_space_errors")
   let nim_highlight_space_errors = 1
 endif
+if !exists("nim_highlight_space_pragmas")
+  let nim_highlight_pragmas = 1
+endif
 
 if exists("nim_highlight_all")
   let nim_highlight_numbers      = 1
@@ -31,21 +34,21 @@ syn region nimBrackets       contained extend keepend matchgroup=Bold start=+\(\
 
 syn keyword nimKeyword       addr and as asm atomic
 syn keyword nimKeyword       bind block break
-syn keyword nimKeyword       case cast const continue converter
-syn keyword nimKeyword       discard distinct div do
+syn keyword nimKeyword       case cast concept const continue converter
+syn keyword nimKeyword       defer discard distinct div do
 syn keyword nimKeyword       elif else end enum except export
-syn keyword nimKeyword       finally for from
+syn keyword nimKeyword       finally for from func
 syn keyword nimKeyword       generic
 syn keyword nimKeyword       if import in include interface is isnot iterator
-syn keyword nimKeyword       lambda let
-syn keyword nimKeyword       mixin using mod
+syn keyword nimKeyword       let
+syn keyword nimKeyword       macro method mixin mod
 syn keyword nimKeyword       nil not notin
 syn keyword nimKeyword       object of or out
-syn keyword nimKeyword       proc method macro template nextgroup=nimFunction skipwhite
-syn keyword nimKeyword       ptr
+syn keyword nimKeyword       proc ptr
 syn keyword nimKeyword       raise ref return
-syn keyword nimKeyword       shared shl shr static
-syn keyword nimKeyword       try tuple type
+syn keyword nimKeyword       shl shr static
+syn keyword nimKeyword       template try tuple type
+syn keyword nimKeyword       using
 syn keyword nimKeyword       var
 syn keyword nimKeyword       when while with without
 syn keyword nimKeyword       xor
@@ -59,6 +62,7 @@ syn keyword nimOperator      and in is not or xor shl shr div
 syn match   nimComment       "#.*$" contains=nimTodo,@Spell
 syn keyword nimTodo          TODO FIXME XXX contained
 syn keyword nimBoolean       true false
+syn match nimOperator        "`.*`"
 
 
 " Strings
@@ -86,12 +90,12 @@ endif
 if nim_highlight_builtins == 1
   " builtin functions, types and objects, not really part of the syntax
   syn keyword nimBuiltin int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64 float float32 float64 bool
-  syn keyword nimBuiltin char string cstring pointer range array openarray seq
-  syn keyword nimBuiltin set Byte Natural Positive TObject PObject Conversion TResult TAddress
+  syn keyword nimBuiltin char string cstring pointer range array openarray openArray seq typedesc varargs expr stmt
+  syn keyword nimBuiltin set Byte Natural Positive Object Object Conversion Result Address
   syn keyword nimBuiltin BiggestInt BiggestFloat cchar cschar cshort cint csize cuchar cushort
   syn keyword nimBuiltin clong clonglong cfloat cdouble clongdouble cuint culong culonglong cchar
-  syn keyword nimBuiltin cstringArray TEndian PFloat32 PFloat64 PInt64 PInt32
-  syn keyword nimBuiltin TGC_Strategy TFile TFileMode TFileHandle isMainModule
+  syn keyword nimBuiltin cstringArray Endian Float32 Float64 Int64 Int32
+  syn keyword nimBuiltin GC_Strategy File FileMode FileHandle isMainModule
   syn keyword nimBuiltin CompileDate CompileTime nimVersion nimMajor
   syn keyword nimBuiltin nimMinor nimPatch cpuEndian hostOS hostCPU inf
   syn keyword nimBuiltin neginf nan QuitSuccess QuitFailure dbgLineHook stdin
@@ -112,7 +116,9 @@ if nim_highlight_builtins == 1
   syn keyword nimBuiltin FlushFile readFile write readLine writeln writeln
   syn keyword nimBuiltin getFileSize ReadBytes ReadChars readBuffer writeBytes
   syn keyword nimBuiltin writeChars writeBuffer setFilePos getFilePos
-  syn keyword nimBuiltin fileHandle countdown countup items lines
+  syn keyword nimBuiltin fileHandle countdown countup
+  syn keyword nimBuiltin items lines mitems pairs mpairs keys values mvalues parallel
+  syn keyword nimBuiltin echo
 endif
 
 if nim_highlight_exceptions == 1
@@ -128,6 +134,23 @@ if nim_highlight_exceptions == 1
   syn keyword nimException EFloatInvalidOp EFloatDivByZero EFloatOverflow
   syn keyword nimException EFloatInexact EDeadThread EResourceExhausted
   syn keyword nimException EFloatUnderflow
+endif
+
+if nim_highlight_pragmas == 1
+  " builtin exceptions and warnings
+  syn keyword nimDecorator deprecated noSideEffect destructor
+  syn keyword nimDecorator override procvar compileTime
+  syn keyword nimDecorator noReturn acyclic final
+  syn keyword nimDecorator shallow pure asmNoStackFrame
+  syn keyword nimDecorator error fatal warning magic
+  syn keyword nimDecorator hint line linearScanEnd
+  syn keyword nimDecorator computedGoto unroll immediate
+  syn keyword nimDecorator global deadCodeElim pragma
+  syn keyword nimDecorator experimental checks boundChecks
+  syn keyword nimDecorator overflowChecks nilChecks assertions
+  syn keyword nimDecorator warnings hints optimization
+  syn keyword nimDecorator patterns callconv sideEffect
+  syn keyword nimDecorator benign inline
 endif
 
 if nim_highlight_space_errors == 1
